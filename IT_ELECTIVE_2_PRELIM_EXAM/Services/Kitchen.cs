@@ -18,23 +18,23 @@ namespace IT_ELECTIVE_2_PRELIM_EXAM.Services;
 
 public class Kitchen
 {
-    public string kitchenName;
-    public string headChef;
-    public int mealCount;
-    public List<Meal> meals;
+    private string kitchenName;
+    private string headChef;
+    public int MealCount { get; private set; }
+    private List<Meal> meals;
 
     public Kitchen(string name, string chef)
     {
         kitchenName = name;
         headChef = chef;
         meals = new List<Meal>();
-        mealCount = 0;
+        MealCount = 0;
     }
 
     public void AddMeal(Meal meal)
     {
         meals.Add(meal);
-        mealCount++;
+        MealCount++;
     }
 
     public List<Meal> GetMeals()
@@ -50,7 +50,7 @@ public class Kitchen
         if (meal != null)
         {
             meals.Remove(meal);
-            mealCount--;
+            MealCount--;
             return true;
         }
         return false;
@@ -58,10 +58,10 @@ public class Kitchen
 
     public string GetKitchenInfo()
     {
-        return $"Kitchen: {kitchenName} | Chef: {headChef} | Meals: {mealCount}";
+        return $"Kitchen: {kitchenName} | Chef: {headChef} | Meals: {MealCount}";
     }
 
-    public string PrepareMeal(string mealName)
+    protected string PrepareMeal(string mealName)
     {
         return $"Preparing {mealName} in {kitchenName}...";
     }
