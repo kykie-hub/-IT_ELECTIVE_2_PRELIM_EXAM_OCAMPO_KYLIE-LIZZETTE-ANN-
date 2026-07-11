@@ -5,7 +5,7 @@ namespace IT_ELECTIVE_2_PRELIM_EXAM_HttpClient.Exercises;
 //
 // Your task:
 // 1. Use the HttpClient to send a GET request to the URL above
- // 2. Read the response as a string
+// 2. Read the response as a string
 // 3. Assert that the status code is 200 OK
 // 4. Assert that the response body is not null or empty
 //
@@ -17,10 +17,15 @@ public static class GetRandomMeal
     public static async Task Run(System.Net.Http.HttpClient client)
     {
         // TODO: Send GET request to https://themealdb.com/api/json/v1/1/random.php
-        // TODO: Read the response content as a string
-        // TODO: Assert status code is 200 OK
-        // TODO: Assert response body is not null or empty
+        var response = await client.GetAsync("https://themealdb.com/api/json/v1/1/random.php");
 
-        throw new NotImplementedException();
+        // TODO: Read the response content as a string
+        var body = await response.Content.ReadAsStringAsync();
+
+        // TODO: Assert status code is 200 OK
+        System.Diagnostics.Debug.Assert(response.StatusCode == System.Net.HttpStatusCode.OK);
+
+        // TODO: Assert response body is not null or empty
+        System.Diagnostics.Debug.Assert(!string.IsNullOrWhiteSpace(body));
     }
 }

@@ -18,12 +18,26 @@ public static class CreateReview
     public static async Task Run(System.Net.Http.HttpClient client)
     {
         // TODO: Create JSON string with title, body, and userId
-        // TODO: Create StringContent with the JSON and Content-Type "application/json"
-        // TODO: Send POST request to https://jsonplaceholder.typicode.com/posts
-        // TODO: Assert status code is 201 Created
-        // TODO: Parse the response JSON
-        // TODO: Assert the response has an "id" field with a value
+        var json = @"{ ""title"": ""Great Pasta!"", ""body"": ""Loved this recipe"", ""userId"": 1 }";
 
-        throw new NotImplementedException();
+        // TODO: Create StringContent with the JSON and Content-Type "application/json"
+        var content = new System.Net.Http.StringContent(
+            json,
+            System.Text.Encoding.UTF8,
+            "application/json");
+
+        // TODO: Send POST request to https://jsonplaceholder.typicode.com/posts
+        var response = await client.PostAsync("https://jsonplaceholder.typicode.com/posts", content);
+
+        // TODO: Assert status code is 201 Created
+        System.Diagnostics.Debug.Assert(response.StatusCode == System.Net.HttpStatusCode.Created);
+
+        // TODO: Parse the response JSON
+        var body = await response.Content.ReadAsStringAsync();
+        using var document = System.Text.Json.JsonDocument.Parse(body);
+
+        // TODO: Assert the response has an "id" field with a value
+        System.Diagnostics.Debug.Assert(document.RootElement.TryGetProperty("id", out var id));
+        System.Diagnostics.Debug.Assert(id.GetInt32() > 0);
     }
 }
